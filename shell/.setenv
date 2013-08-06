@@ -1,0 +1,21 @@
+#!/bin/bash
+
+export BACKGROUND_COLOR=dark
+
+if [ -d "$HOME/bin" ] ; then
+  export PATH="$HOME/bin:$PATH"
+fi
+
+if [ -d "$HOME/tools/java" ] ; then
+  export JAVA_HOME="$HOME/tools/java"
+  export PATH="$JAVA_HOME/bin:$PATH"
+fi
+
+if [ -d "$HOME/tools/gradle" ] ; then
+  export GRADLE_HOME="$HOME/tools/gradle"
+  export PATH="$GRADLE_HOME/bin:$PATH"
+fi
+
+if [ -d "$HOME/.gem/custom" ]; then
+  export GEM_HOME="$HOME/.gem/custom"
+fi

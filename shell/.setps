@@ -1,0 +1,13 @@
+#!/bin/bash
+
+BLUE="\[\e[0;34m\]"
+BLUE_BOLD="\[\e[1;34m\]"
+NC="\[\e[0m\]"
+
+if [[ $BACKGROUND_COLOR == "light" ]]; then
+	BOLD="\[\e[1;30m\]"
+else
+	BOLD="\[\e[0;37m\]"
+fi
+
+export PS1="$BLUE_BOLD[\$(date +%k:%M:%S)] $NC\u@$BOLD \h $BLUE\w $NC"
