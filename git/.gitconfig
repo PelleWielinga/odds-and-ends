@@ -1,0 +1,9 @@
+[user]
+  name = pelle.wielinga
+  email = pelle.wielinga@gmail.com
+
+[color]
+  ui = auto
+
+[core]
+  editor = vim
