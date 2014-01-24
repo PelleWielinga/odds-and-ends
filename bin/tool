@@ -1,0 +1,47 @@
+#/bin/bash -e
+
+ARCHIVE=$1
+NAME=$2
+TARGET=$3
+
+if [[ -z $ARCHIVE || -z $NAME ]]; then
+	echo "Usage: tool <archive> <name> [<target>]"
+	exit 1
+fi
+
+INSTALL_DIR="$HOME/tools/.install/$NAME"
+mkdir -p "$INSTALL_DIR/temp"
+
+ZIP="\.zip$"
+TAR="\.tar\.gz$"
+
+if [[ "$ARCHIVE" =~ $TAR ]]; then
+  tar xvf "$ARCHIVE" -C "$INSTALL_DIR/temp"
+elif [[ "$ARCHIVE" =~ $ZIP ]]; then
+  unzip "$ARCHIVE" -d "$INSTALL_DIR/temp"
+else
+  echo "Don't know how to extract $ARCHIVE"
+  exit 1
+fi
+
+if [[ $(ls "$INSTALL_DIR/temp" | wc -l) -eq "1" ]]; then
+	TOPDIR=$(ls "$INSTALL_DIR/temp")
+
+	if [[ -z $TARGET ]]; then
+		TARGET=$TOPDIR
+	fi
+
+	mv "$INSTALL_DIR/temp/$TOPDIR" "$INSTALL_DIR/$TARGET"
+	rm -r "$INSTALL_DIR/temp"	
+else
+	if [[ -z $TARGET ]]; then
+		echo "Could not find unique top level directory. Target should be specified"
+		exit 1
+	fi
+
+	mv "$INSTALL_DIR/temp" "$INSTALL_DIR/$TARGET"
+fi
+
+cd "$HOME/tools"
+rm -f "$HOME/tools/$NAME"
+ln -s "$INSTALL_DIR/$TARGET" "$NAME"

@@ -1,0 +1,12 @@
+#/bin/bash -e
+
+if [[ -x ./g ]]; then
+  ./g $*
+  exit 0
+elif [[ -x ./gradlew ]]; then
+  ./gradlew $*
+  exit 0
+fi
+
+echo "Cannot find 'g' or 'gradlew' script. Is this a gradle directory?"
+exit 1
