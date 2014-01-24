@@ -1,4 +1,6 @@
-#/bin/bash -e
+#!/bin/bash
+
+set -e
 
 ARCHIVE=$1
 NAME=$2
@@ -6,6 +8,15 @@ TARGET=$3
 
 if [[ -z $ARCHIVE || -z $NAME ]]; then
 	echo "Usage: tool <archive> <name> [<target>]"
+  echo
+  echo "Installs any tool contained in an archive into the"
+  echo "~/tools/.install/<name> directory. It also creates"
+  echo "(or overwrites) a link ~/tools/<name> to the install"
+  echo "dir."
+  echo
+  echo "If the archive contains a configure script (from make)"
+  echo "it also builds the tool and sets the symlink to the"
+  echo "binaries."
 	exit 1
 fi
 
@@ -40,6 +51,17 @@ else
 	fi
 
 	mv "$INSTALL_DIR/temp" "$INSTALL_DIR/$TARGET"
+fi
+
+if [[ -x "$INSTALL_DIR/$TARGET/configure" ]]; then
+  mv "$INSTALL_DIR/$TARGET" "$INSTALL_DIR/${TARGET}-installer"
+
+  cd "$INSTALL_DIR/${TARGET}-installer"
+  mkdir "$INSTALL_DIR/$TARGET"
+
+  ./configure --prefix="$INSTALL_DIR/$TARGET"
+  make
+  make install prefix="$INSTALL_DIR/$TARGET"
 fi
 
 cd "$HOME/tools"
