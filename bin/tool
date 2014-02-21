@@ -25,8 +25,9 @@ mkdir -p "$INSTALL_DIR/temp"
 
 ZIP="\.zip$"
 TAR="\.tar\.gz$"
+TGZ="\.tgz$"
 
-if [[ "$ARCHIVE" =~ $TAR ]]; then
+if [[ "$ARCHIVE" =~ $TAR || "$ARCHIVE" =~ $TGZ ]]; then
   tar xvf "$ARCHIVE" -C "$INSTALL_DIR/temp"
 elif [[ "$ARCHIVE" =~ $ZIP ]]; then
   unzip "$ARCHIVE" -d "$INSTALL_DIR/temp"

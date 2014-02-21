@@ -6,16 +6,20 @@ if [ -d "$HOME/bin" ] ; then
   export PATH="$HOME/bin:$PATH"
 fi
 
+for tool in $(ls "$HOME/tools")
+do
+  if [[ -d "$HOME/tools/$tool/bin" ]]; then
+    export PATH="$PATH:$HOME/tools/$tool/bin"
+  fi
+done
+
+if [ -d "$HOME/tools/android" ] ; then
+  export ANDROID_HOME="$HOME/tools/android"
+fi
+
 if [ -d "$HOME/tools/java" ] ; then
   export JAVA_HOME="$HOME/tools/java"
-  export PATH="$JAVA_HOME/bin:$PATH"
-fi
 
-if [ -d "$HOME/tools/gradle" ] ; then
-  export GRADLE_HOME="$HOME/tools/gradle"
-  export PATH="$GRADLE_HOME/bin:$PATH"
-fi
-
-if [ -d "$HOME/.gem/custom" ]; then
-  export GEM_HOME="$HOME/.gem/custom"
+  # Add java in front of path to make sure it comes before the default java
+  export PATH="$HOME/tools/java/bin:$PATH"
 fi

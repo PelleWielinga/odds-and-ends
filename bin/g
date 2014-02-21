@@ -1,4 +1,4 @@
-#/bin/bash -e
+#!/bin/bash -e
 
 if [[ -x ./g ]]; then
   ./g $*

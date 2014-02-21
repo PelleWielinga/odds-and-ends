@@ -1,7 +1,10 @@
 " Syntax Highlighting
 syntax on
 set t_Co=256
-colorscheme mustang
+
+colorscheme lucius
+call SetLucius("dark", "normal", "normal")
+colorscheme lucius
 
 " Tabs
 set shiftwidth=2
