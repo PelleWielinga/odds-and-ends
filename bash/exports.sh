@@ -1,9 +1,11 @@
 #!/bin/bash
 
-export BACKGROUND_COLOR=dark
-
 if [ -d "$HOME/bin" ] ; then
   export PATH="$HOME/bin:$PATH"
+fi
+
+if [ -d "$DOTFILES_DIR/bin" ] ; then
+  export PATH="$DOTFILES_DIR/bin:$PATH"
 fi
 
 for tool in $(ls "$HOME/tools")
