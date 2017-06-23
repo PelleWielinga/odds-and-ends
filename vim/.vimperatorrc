@@ -1,0 +1,8 @@
+noremap j 3j
+noremap k 3k
+
+set hintchars="abcdefghijklmnopqrstuvwxyz"
+set focuscontent
+set gui=none,tabs
+set noscrollbars
+set statuslinevisibility=visible
